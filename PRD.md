@@ -437,7 +437,7 @@ flowchart LR
 
 ### 8.1 Data Architecture
 ```mermaid
-flowchart TD
+flowchart LR
     DB[DATUMFOLIO DATABASE]
 
     DB --> CORE[Core Tables]
