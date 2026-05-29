@@ -187,78 +187,38 @@ Not included in Phase 1: China, Africa, South America, Middle East (future expan
 ## 5. Platform Scope and Features
 
 ### 5.1 Feature Map
-
 ```mermaid
 flowchart LR
     DF[DATUMFOLIO]
+
     DF --> GPS[Graduate Program Search]
     DF --> RO[Research Opportunities]
     DF --> COM[Community]
     DF --> UA[User Accounts]
     DF --> FUT[Future Tier 3]
-```
 
----
-
-#### Graduate Program Search — Global
-
-```mermaid
-flowchart LR
-    GPS[Graduate Program Search]
     GPS --> GPS1[Browse and filter programs]
     GPS --> GPS2[Interactive map view]
     GPS --> GPS3[Program detail pages]
     GPS --> GPS4[Side-by-side comparison up to 5]
     GPS --> GPS5[Shortlist and save programs]
     GPS --> GPS6[Data completeness transparency]
-```
 
----
-
-#### Research Opportunities
-
-```mermaid
-flowchart LR
-    RO[Research Opportunities]
     RO --> RO1[Conferences and CFPs]
     RO --> RO2[Journal Call for Contributions]
     RO --> RO3[Fellowships and Grants]
     RO --> RO4[Innovation Opportunities]
-```
 
----
-
-#### Community
-
-```mermaid
-flowchart LR
-    COM[Community]
     COM --> COM1[Discord server linked]
     COM --> COM2[Newsletter and Weekly Digest]
     COM --> COM3[Community submission portal moderated]
     COM --> COM4[Future Collaboration matchmaking]
-```
 
----
-
-#### User Accounts
-
-```mermaid
-flowchart LR
-    UA[User Accounts]
     UA --> UA1[Email and password authentication]
     UA --> UA2[Profile disciplines interests career stage]
     UA --> UA3[Saved items programs opportunities]
     UA --> UA4[Future Public researcher profile]
-```
 
----
-
-#### Future — Tier 3
-
-```mermaid
-flowchart LR
-    FUT[Future Tier 3]
     FUT --> FUT1[University research lab profiles]
     FUT --> FUT2[Mentoring marketplace]
     FUT --> FUT3[Portfolio review service]
