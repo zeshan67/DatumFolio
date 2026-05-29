@@ -41,11 +41,11 @@ The platform aggregates graduate programs, conference CFPs, journal calls for co
 
 - **Graduate Program Search** — Browse, filter, and compare programs across 300+ institutions globally with an interactive map view [1]
 - **Side-by-Side Comparison** — Compare up to 5 programs with highlighted differences across admissions, cost, and structure [1]
-- **Research Opportunities** — Curated conferences, journal CFPs, fellowships, and innovation opportunities with deadline tracking [1]
+- **Research Opportunities** — Curated conferences, journal CFPs, fellowships, and innovation opportunities with deadline tracking. Public teaser listings (title + deadline) are discoverable by anyone; full details require a free account [1]
 - **Interactive Map** — Programs visualized geographically with discipline-coded markers and clustered views [1]
 - **Data Transparency** — Every program profile shows a completeness indicator showing how much data has been verified [1]
 - **Community** — Discord-linked community for discussion, peer support, and moderated opportunity submissions [1]
-- **Newsletter** — Weekly digest of new programs, upcoming deadlines, and featured opportunities [1]
+- **Newsletter** — Opt-in weekly digest of new programs, upcoming deadlines, and featured opportunities. Explicit consent required at signup; off by default [1]
 
 ---
 
