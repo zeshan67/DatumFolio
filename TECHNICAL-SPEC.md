@@ -128,8 +128,11 @@ CREATE TABLE institutions (
   city TEXT NOT NULL,
   state_province TEXT,
   country TEXT NOT NULL,
-  region TEXT NOT NULL CHECK (
-    region IN ('US', 'UK', 'EU', 'Asia-Pacific', 'South Asia', 'Other')
+region TEXT NOT NULL CHECK (
+    region IN ('US', 'UK', 'Europe', 'Asia', 'Oceania', 'Other')
+  ),
+  subregion TEXT CHECK (
+    subregion IN ('North America (ex-US)', 'South America', 'Africa', 'Russia')
   ),
   latitude DOUBLE PRECISION NOT NULL,
   longitude DOUBLE PRECISION NOT NULL,
@@ -474,7 +477,7 @@ CREATE TABLE profiles (
   ),
   institution TEXT,
   country TEXT,
-  newsletter_subscribed BOOLEAN DEFAULT TRUE
+ newsletter_subscribed BOOLEAN DEFAULT FALSE NOT NULL
 );
 
 
@@ -521,8 +524,8 @@ CREATE TABLE submissions (
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
 
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  submission_type TEXT NOT NULL CHECK (
-    submission_type IN ('conference', 'journal', 'fellowship', 'opportunity')
+submission_type TEXT NOT NULL CHECK (
+    submission_type IN ('conference', 'journal', 'fellowship', 'innovation')
   ),
 
   title TEXT NOT NULL,
@@ -548,9 +551,27 @@ CREATE TABLE newsletter_signups (
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
 
   email TEXT NOT NULL UNIQUE,
+  consent BOOLEAN NOT NULL DEFAULT FALSE,
   source TEXT,
   disciplines_interest TEXT[]
 );
+
+-- ============================================
+-- UNIFIED NEWSLETTER RECIPIENT VIEW
+-- Single source of truth for who receives the newsletter.
+-- Combines opted-in account holders (via auth email) and
+-- standalone subscribers. Send job reads from this view only.
+-- ============================================
+
+CREATE OR REPLACE VIEW newsletter_recipients AS
+  SELECT u.email, 'account' AS origin
+  FROM auth.users u
+  JOIN profiles p ON p.id = u.id
+  WHERE p.newsletter_subscribed = TRUE
+  UNION
+  SELECT n.email, 'standalone' AS origin
+  FROM newsletter_signups n
+  WHERE n.consent = TRUE;
 
 
 -- ============================================
@@ -689,6 +710,43 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION handle_new_user();
+
+
+-- ============================================
+-- PUBLIC TEASER VIEWS (anonymous-readable, SEO)
+-- Expose ONLY title + deadline + status for approved items.
+-- Full detail remains gated to authenticated users via base tables.
+-- ============================================
+
+CREATE OR REPLACE VIEW public_conferences AS
+  SELECT id, name AS title, cfp_deadline AS deadline, status
+  FROM conferences WHERE approved = TRUE;
+
+CREATE OR REPLACE VIEW public_journal_calls AS
+  SELECT id, journal_name AS title, submission_deadline AS deadline, status
+  FROM journal_calls WHERE approved = TRUE;
+
+CREATE OR REPLACE VIEW public_fellowships AS
+  SELECT id, name AS title, application_deadline AS deadline, status
+  FROM fellowships WHERE approved = TRUE;
+
+CREATE OR REPLACE VIEW public_innovation_opportunities AS
+  SELECT id, title, application_deadline AS deadline, status
+  FROM innovation_opportunities WHERE approved = TRUE;
+
+-- Views inherit RLS from base tables by default. To serve anonymous
+-- readers, these views are defined with security_invoker = false
+-- (run with definer privileges) so they bypass base-table RLS but
+-- expose only the safe columns selected above.
+ALTER VIEW public_conferences SET (security_invoker = false);
+ALTER VIEW public_journal_calls SET (security_invoker = false);
+ALTER VIEW public_fellowships SET (security_invoker = false);
+ALTER VIEW public_innovation_opportunities SET (security_invoker = false);
+
+GRANT SELECT ON public_conferences TO anon, authenticated;
+GRANT SELECT ON public_journal_calls TO anon, authenticated;
+GRANT SELECT ON public_fellowships TO anon, authenticated;
+GRANT SELECT ON public_innovation_opportunities TO anon, authenticated;
 ```
 
 ---
@@ -780,6 +838,10 @@ CREATE TRIGGER on_auth_user_created
 | /api/opportunities/fellowships/[id] | GET | Yes | Fellowship detail |
 | /api/opportunities/innovation | GET | Yes | List approved opportunities |
 | /api/opportunities/innovation/[id] | GET | Yes | Opportunity detail |
+| /api/opportunities/conferences/public | GET | No | Teaser list (title + deadline + status) for SEO |
+| /api/opportunities/journals/public | GET | No | Teaser list (title + deadline + status) for SEO |
+| /api/opportunities/fellowships/public | GET | No | Teaser list (title + deadline + status) for SEO |
+| /api/opportunities/innovation/public | GET | No | Teaser list (title + deadline + status) for SEO |
 
 **Common query params for all opportunity endpoints:**
 
@@ -813,7 +875,7 @@ CREATE TRIGGER on_auth_user_created
 
 ```json
 {
-  "submission_type": "conference or journal or fellowship or opportunity",
+"submission_type": "conference or journal or fellowship or innovation",
   "title": "string",
   "description": "string",
   "deadline": "date string",
@@ -869,7 +931,7 @@ CREATE TRIGGER on_auth_user_created
 | ShortlistButton | components/programs/ | Save/unsave program | API call (requires auth) |
 | ProgramMap | components/map/ | Mapbox GL map with clustered markers | react-map-gl |
 | ExploreView | components/map/ | Map + sidebar layout | ProgramMap |
-| OpportunityCard | components/opportunities/ | Card for any opportunity type | Badge, DeadlineIndicator |
+| OpportunityCard | components/opportunities/ | Card for any opportunity type. On the dashboard, if the referenced opportunity has been deleted by an admin, renders a "Saved item no longer exists" placeholder instead of crashing. | Badge, DeadlineIndicator |
 | OpportunityTabs | components/opportunities/ | Tab navigation between opportunity types | None |
 | DeadlineIndicator | components/opportunities/ | Days remaining countdown with urgency color | None |
 | StatusBadge | components/opportunities/ | Open/Closing Soon/Closed badge | Badge |
