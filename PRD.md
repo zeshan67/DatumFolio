@@ -850,41 +850,46 @@ DatumFolio generates revenue primarily from institutions and premium services wh
 ## 15. Community Strategy
 
 ### 15.1 Discord Server Structure
-DATUMFOLIO DISCORD
-│
-├── #announcements (read-only)
-├── #introductions
-├── #general
-│
-├── PROGRAMS
-│ ├── #program-recommendations
-│ ├── #application-tips
-│ ├── #portfolio-feedback
-│ └── #funding-scholarships
-│
-├── RESEARCH
-│ ├── #conferences-cfps
-│ ├── #publishing-journals
-│ ├── #collaboration-wanted
-│ └── #research-methods
-│
-├── DISCIPLINES
-│ ├── #architecture
-│ ├── #urban-design
-│ ├── #interactive-design
-│ ├── #digital-arts
-│ └── #participatory-design
-│
-├── CAREER
-│ ├── #phd-positions
-│ ├── #postdoc-opportunities
-│ ├── #industry-research
-│ └── #career-advice
-│
-└── META
-├── #feedback-suggestions
-├── #bug-reports
-└── #off-topic
+```mermaid
+flowchart LR
+    DISC[DATUMFOLIO DISCORD]
+
+    DISC --> GEN[General]
+    DISC --> PROG[Programs]
+    DISC --> RES[Research]
+    DISC --> DIS[Disciplines]
+    DISC --> CAR[Career]
+    DISC --> META[Meta]
+
+    GEN --> GEN1[announcements — read-only]
+    GEN --> GEN2[introductions]
+    GEN --> GEN3[general]
+
+    PROG --> PROG1[program-recommendations]
+    PROG --> PROG2[application-tips]
+    PROG --> PROG3[portfolio-feedback]
+    PROG --> PROG4[funding-scholarships]
+
+    RES --> RES1[conferences-cfps]
+    RES --> RES2[publishing-journals]
+    RES --> RES3[collaboration-wanted]
+    RES --> RES4[research-methods]
+
+    DIS --> DIS1[architecture]
+    DIS --> DIS2[urban-design]
+    DIS --> DIS3[interactive-design]
+    DIS --> DIS4[digital-arts]
+    DIS --> DIS5[participatory-design]
+
+    CAR --> CAR1[phd-positions]
+    CAR --> CAR2[postdoc-opportunities]
+    CAR --> CAR3[industry-research]
+    CAR --> CAR4[career-advice]
+
+    META --> META1[feedback-suggestions]
+    META --> META2[bug-reports]
+    META --> META3[off-topic]
+```
 
 ### 15.2 Moderation
 
