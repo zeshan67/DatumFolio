@@ -187,7 +187,6 @@ Not included in Phase 1: China, Africa, South America, Middle East (future expan
 ## 5. Platform Scope and Features
 
 ### 5.1 Feature Map
-DATUMFOLIO
 ```mermaid
 flowchart TD
     DF[DATUMFOLIO]
@@ -198,7 +197,6 @@ flowchart TD
     DF --> UA[User Accounts]
     DF --> FUT[Future — Tier 3]
 
-    %% Graduate Program Search
     GPS --> GPS1[Browse and filter programs]
     GPS --> GPS2[Interactive map view]
     GPS --> GPS3[Program detail pages]
@@ -206,31 +204,27 @@ flowchart TD
     GPS --> GPS5[Shortlist / save programs]
     GPS --> GPS6[Data completeness transparency]
 
-    %% Research Opportunities
-    RO --> RO1[Conferences & CFPs — deadlines, themes, locations]
+    RO --> RO1[Conferences and CFPs — deadlines, themes, locations]
     RO --> RO2[Journal Call for Contributions — live calls only]
-    RO --> RO3[Fellowships & Grants]
+    RO --> RO3[Fellowships and Grants]
     RO --> RO4[Innovation Opportunities — PhD, postdocs, research roles]
 
-    %% Community
     COM --> COM1[Discord server — linked]
     COM --> COM2[Newsletter / Weekly Digest]
     COM --> COM3[Community submission portal — moderated]
     COM --> COM4[Future: Collaboration matchmaking]
 
-    %% User Accounts
-    UA --> UA1[Email + password authentication]
+    UA --> UA1[Email and password authentication]
     UA --> UA2[Profile — disciplines, interests, career stage]
     UA --> UA3[Saved items — programs, opportunities]
     UA --> UA4[Future: Public researcher profile]
 
-    %% Future Tier 3
     FUT --> FUT1[University research lab profiles]
     FUT --> FUT2[Mentoring marketplace]
     FUT --> FUT3[Portfolio review service]
     FUT --> FUT4[Grant writing assistance]
     FUT --> FUT5[Premium institutional features]
-
+```
 ### 5.2 Feature Prioritization
 
 | Feature | Tier | Launch Priority | Complexity |
