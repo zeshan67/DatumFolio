@@ -513,31 +513,41 @@ Every program profile shows a completeness percentage:
 - **Correctable:** Small, focused files that can be replaced without cascading breaks
 
 ### 9.3 Folder Structure (Planned)
-datumfolio/
-├── src/
-│ ├── app/
-│ │ ├── (auth)/ # Login, signup, password reset
-│ │ ├── (marketing)/ # Home, about, pricing
-│ │ ├── programs/ # Graduate program search
-│ │ ├── explore/ # Map view
-│ │ ├── opportunities/ # Conferences, CFPs, fellowships
-│ │ ├── community/ # Submission form, Discord link
-│ │ ├── dashboard/ # User dashboard (Tier 2)
-│ │ ├── api/ # API routes
-│ │ └── admin/ # Admin/moderation (future)
-│ ├── components/
-│ │ ├── ui/ # Design system primitives
-│ │ ├── programs/ # Program-specific components
-│ │ ├── opportunities/ # Opportunity-specific components
-│ │ ├── map/ # Map components
-│ │ └── layout/ # Header, footer, navigation
-│ ├── lib/
-│ │ ├── supabase/ # Database clients
-│ │ ├── api/ # Response helpers, client functions
-│ │ └── hooks/ # Custom React hooks
-│ └── types/ # TypeScript definitions
-├── public/ # Static assets
-└── docs/ # Documentation
+## Folder Structure
+
+```mermaid
+flowchart LR
+    ROOT[datumfolio]
+
+    ROOT --> SRC[src]
+    ROOT --> PUB[public — static assets]
+    ROOT --> DOCS[docs — documentation]
+
+    SRC --> APP[app]
+    SRC --> COMP[components]
+    SRC --> LIB[lib]
+    SRC --> TYPES[types — TypeScript definitions]
+
+    APP --> APP1["(auth) — login, signup, reset"]
+    APP --> APP2["(marketing) — home, about, pricing"]
+    APP --> APP3[programs — graduate program search]
+    APP --> APP4[explore — map view]
+    APP --> APP5[opportunities — conferences, CFPs, fellowships]
+    APP --> APP6[community — submission form, Discord link]
+    APP --> APP7[dashboard — user dashboard Tier 2]
+    APP --> APP8[api — API routes]
+    APP --> APP9[admin — moderation future]
+
+    COMP --> COMP1[ui — design system primitives]
+    COMP --> COMP2[programs — program-specific components]
+    COMP --> COMP3[opportunities — opportunity-specific components]
+    COMP --> COMP4[map — map components]
+    COMP --> COMP5[layout — header, footer, navigation]
+
+    LIB --> LIB1[supabase — database clients]
+    LIB --> LIB2[api — response helpers, client functions]
+    LIB --> LIB3[hooks — custom React hooks]
+```
 
 ### 9.4 Environment Variables
 
