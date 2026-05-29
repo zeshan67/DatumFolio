@@ -437,81 +437,44 @@ flowchart LR
 
 ### 8.1 Data Architecture
 ```mermaid
-flowchart LR
+flowchart TD
     DB[DATUMFOLIO DATABASE]
+
     DB --> CORE[Core Tables]
     DB --> OPP[Opportunity Tables]
     DB --> USER[User Tables]
     DB --> COMM[Community Tables]
-```
 
----
-
-#### Core Tables
-
-```mermaid
-flowchart LR
-    CORE[Core Tables]
     CORE --> INST[institutions]
     CORE --> PROG[programs]
     CORE --> ADM[admissions]
     CORE --> COST[costs]
     CORE --> META[metadata]
-```
 
----
+    INST -->|one-to-many| PROG
+    PROG -->|one-to-one| ADM
+    PROG -->|one-to-one| COST
+    PROG -->|one-to-one| META
 
-#### Opportunity Tables
-
-```mermaid
-flowchart LR
-    OPP[Opportunity Tables]
     OPP --> CONF[conferences]
     OPP --> JOUR[journal_calls]
     OPP --> FELL[fellowships]
     OPP --> INNO[innovation_opportunities]
-```
 
----
-
-#### User Tables
-
-```mermaid
-flowchart LR
-    USER[User Tables]
     USER --> AUTH[users — auth]
     USER --> PROF[profiles]
     USER --> SP[saved_programs]
     USER --> SO[saved_opportunities]
-```
 
----
+    AUTH -->|one-to-one| PROF
+    AUTH -->|one-to-many| SP
+    AUTH -->|one-to-many| SO
 
-#### Community Tables
-
-```mermaid
-flowchart LR
-    COMM[Community Tables]
     COMM --> SUB[submissions — moderated queue]
     COMM --> NL[newsletter_signups]
+
+    AUTH -->|one-to-many| SUB
 ```
-
----
-
-#### Relationships
-
-```mermaid
-flowchart LR
-    INST[institutions] -->|one-to-many| PROG[programs]
-    PROG -->|one-to-one| ADM[admissions]
-    PROG -->|one-to-one| COST[costs]
-    PROG -->|one-to-one| META[metadata]
-    AUTH[auth.users] -->|one-to-one| PROF[profiles]
-    AUTH -->|one-to-many| SP[saved_programs]
-    AUTH -->|one-to-many| SO[saved_opportunities]
-    AUTH -->|one-to-many| SUB[submissions]
-```
-
 
 ### 8.2 Data Collection Strategy
 
