@@ -188,39 +188,48 @@ Not included in Phase 1: China, Africa, South America, Middle East (future expan
 
 ### 5.1 Feature Map
 DATUMFOLIO
-│
-├── Graduate Program Search (Global)
-│ ├── Browse and filter programs
-│ ├── Interactive map view
-│ ├── Program detail pages
-│ ├── Side-by-side comparison (up to 5)
-│ ├── Shortlist / save programs
-│ └── Data completeness transparency
-│
-├── Research Opportunities
-│ ├── Conferences & CFPs (deadlines, themes, locations)
-│ ├── Journal Call for Contributions (live calls only)
-│ ├── Fellowships & Grants
-│ └── Innovation Opportunities (PhD positions, postdocs, research roles)
-│
-├── Community
-│ ├── Discord server (linked)
-│ ├── Newsletter / Weekly Digest
-│ ├── Community submission portal (moderated)
-│ └── [Future] Collaboration matchmaking
-│
-├── User Accounts
-│ ├── Email + password authentication
-│ ├── Profile (disciplines, interests, career stage)
-│ ├── Saved items (programs, opportunities)
-│ └── [Future] Public researcher profile
-│
-└── [Future — Tier 3]
-├── University research lab profiles
-├── Mentoring marketplace
-├── Portfolio review service
-├── Grant writing assistance
-└── Premium institutional features
+```mermaid
+flowchart TD
+    DF[DATUMFOLIO]
+
+    DF --> GPS[Graduate Program Search — Global]
+    DF --> RO[Research Opportunities]
+    DF --> COM[Community]
+    DF --> UA[User Accounts]
+    DF --> FUT[Future — Tier 3]
+
+    %% Graduate Program Search
+    GPS --> GPS1[Browse and filter programs]
+    GPS --> GPS2[Interactive map view]
+    GPS --> GPS3[Program detail pages]
+    GPS --> GPS4[Side-by-side comparison — up to 5]
+    GPS --> GPS5[Shortlist / save programs]
+    GPS --> GPS6[Data completeness transparency]
+
+    %% Research Opportunities
+    RO --> RO1[Conferences & CFPs — deadlines, themes, locations]
+    RO --> RO2[Journal Call for Contributions — live calls only]
+    RO --> RO3[Fellowships & Grants]
+    RO --> RO4[Innovation Opportunities — PhD, postdocs, research roles]
+
+    %% Community
+    COM --> COM1[Discord server — linked]
+    COM --> COM2[Newsletter / Weekly Digest]
+    COM --> COM3[Community submission portal — moderated]
+    COM --> COM4[Future: Collaboration matchmaking]
+
+    %% User Accounts
+    UA --> UA1[Email + password authentication]
+    UA --> UA2[Profile — disciplines, interests, career stage]
+    UA --> UA3[Saved items — programs, opportunities]
+    UA --> UA4[Future: Public researcher profile]
+
+    %% Future Tier 3
+    FUT --> FUT1[University research lab profiles]
+    FUT --> FUT2[Mentoring marketplace]
+    FUT --> FUT3[Portfolio review service]
+    FUT --> FUT4[Grant writing assistance]
+    FUT --> FUT5[Premium institutional features]
 
 ### 5.2 Feature Prioritization
 
