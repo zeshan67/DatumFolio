@@ -158,12 +158,14 @@ DatumFolio is research and inquiry driven. It does not rank institutions. It doe
 Graduate program database launch coverage:
 - United States: 150 institutions
 - United Kingdom: 30 institutions
-- European Union: 70 institutions
-- Australia: 15 institutions
-- East/Southeast Asia (Japan, Korea, Singapore, Malaysia, Indonesia): 35 institutions
+- Europe (excluding UK): 70 institutions
+- Oceania (Australia, New Zealand): 15 institutions
+- Asia (Japan, Korea, Singapore, Malaysia, Indonesia): 35 institutions
 - **Total launch target: 300 institutions, each with multiple programs**
 
-Not included in Phase 1: China, Africa, South America, Middle East (future expansion).
+**Region model:** Every institution belongs to one of six regions — US, UK, Europe, Asia, Oceania, or Other. Regions are modeled as study destinations, not continents. "Other" is the catch-all for everything outside the five primary destinations and carries optional subregion tags for filtering: North America (ex-US), South America, Africa, Russia.
+
+Not prioritized in Phase 1 (fall under "Other"): China, Africa, South America, Middle East (future expansion).
 
 ### 4.3 User Personas
 
@@ -256,7 +258,7 @@ flowchart LR
 |---|---|
 | Browse graduate programs | Full search, filter, map view |
 | View program detail pages | All public program data |
-| Read newsletter/digest | Weekly research news |
+| Subscribe to newsletter/digest | Opt-in only. Explicit consent required; off by default |
 | View About, FAQ, general content | — |
 
 ### 6.2 Tier 2 — Free Account (Email + Password)
@@ -389,7 +391,9 @@ flowchart LR
 - Weekly email digest
 - Curated highlights: new programs added, upcoming deadlines, featured opportunities
 - Tier 1 (free, no account needed — just email signup)
-- Sent via email service (Resend, Mailchimp free tier, or Supabase edge function)
+- **Consent model:** Explicit opt-in only, off by default. Consent is captured at the point of signup (account registration or standalone email capture) and stored as a boolean. The newsletter is sent only to addresses with consent = true.
+- **Unified recipient view:** Both account holders (profiles) and standalone email subscribers (newsletter_signups) are read through a single unified view at send time, so there is one source of truth for who receives the newsletter.
+- Sent via Resend
 
 ---
 
@@ -416,10 +420,11 @@ flowchart LR
     PROG -->|one-to-one| COST
     PROG -->|one-to-one| META
 
-    OPP --> CONF[conferences]
+   OPP --> CONF[conferences]
     OPP --> JOUR[journal_calls]
     OPP --> FELL[fellowships]
     OPP --> INNO[innovation_opportunities]
+    OPP --> PUB[public teaser view — title + deadline + status only, anonymous-readable for SEO]
 
     USER --> AUTH[users — auth]
     USER --> PROF[profiles]
@@ -700,10 +705,10 @@ Landing Page
 | admissions | SELECT | SELECT | ALL |
 | costs | SELECT | SELECT | ALL |
 | metadata | SELECT | SELECT | ALL |
-| conferences | — | SELECT | ALL |
-| journal_calls | — | SELECT | ALL |
-| fellowships | — | SELECT | ALL |
-| opportunities | — | SELECT | ALL |
+| conferences | SELECT (limited fields via public view) | SELECT (full) | ALL |
+| journal_calls | SELECT (limited fields via public view) | SELECT (full) | ALL |
+| fellowships | SELECT (limited fields via public view) | SELECT (full) | ALL |
+| innovation_opportunities | SELECT (limited fields via public view) | SELECT (full) | ALL |
 | saved_programs | — | Own rows only | ALL |
 | saved_opportunities | — | Own rows only | ALL |
 | submissions | — | INSERT (own) | ALL |
